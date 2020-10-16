@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="listener"
+            type="com.eman.taskcalories.data.listeners.Listener_Recipe" />
 
         <variable
             name="calories"
@@ -16,6 +19,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="5dp"
+        android:onClick="@{()->listener.openDetailRecipe(calories)}"
         app:cardCornerRadius="15dp"
         app:cardElevation="3dp">
 
@@ -61,8 +65,8 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="@color/colorPrimary"
                     android:text="@{calories.name}"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
                 <TextView

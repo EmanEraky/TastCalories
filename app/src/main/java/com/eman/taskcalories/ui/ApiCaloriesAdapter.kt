@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eman.taskcalories.R
+import com.eman.taskcalories.data.listeners.Listener_Recipe
 import com.eman.taskcalories.data.model.ApiCalories
 import com.eman.taskcalories.databinding.RowRecipeBinding
 
-class ApiCaloriesAdapter(private var calories: ArrayList<ApiCalories>) : RecyclerView.Adapter<ApiCaloriesAdapter.DataViewHolder>(), Filterable {
+class ApiCaloriesAdapter(private var calories: ArrayList<ApiCalories>,var listener :Listener_Recipe) : RecyclerView.Adapter<ApiCaloriesAdapter.DataViewHolder>(), Filterable {
     var caloriesList= ArrayList<ApiCalories>()
 
     init {
@@ -31,6 +32,8 @@ class ApiCaloriesAdapter(private var calories: ArrayList<ApiCalories>) : Recycle
     override fun getItemCount(): Int = caloriesList.size
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
+        holder.binding.listener =listener
+
         holder.binding.calories = caloriesList.get(position)
         Glide.with(holder.binding.root).load(caloriesList.get(position).image).into(holder.binding.imgCalor)
     }

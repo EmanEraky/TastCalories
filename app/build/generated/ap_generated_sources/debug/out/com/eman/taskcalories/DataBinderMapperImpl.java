@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.databinding.DataBinderMapper;
 import androidx.databinding.DataBindingComponent;
 import androidx.databinding.ViewDataBinding;
+import com.eman.taskcalories.databinding.ActivityDetailsBindingImpl;
 import com.eman.taskcalories.databinding.ActivityMainBindingImpl;
 import com.eman.taskcalories.databinding.RowRecipeBindingImpl;
 import java.lang.IllegalArgumentException;
@@ -19,13 +20,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataBinderMapperImpl extends DataBinderMapper {
-  private static final int LAYOUT_ACTIVITYMAIN = 1;
+  private static final int LAYOUT_ACTIVITYDETAILS = 1;
 
-  private static final int LAYOUT_ROWRECIPE = 2;
+  private static final int LAYOUT_ACTIVITYMAIN = 2;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(2);
+  private static final int LAYOUT_ROWRECIPE = 3;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(3);
 
   static {
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.eman.taskcalories.R.layout.activity_details, LAYOUT_ACTIVITYDETAILS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.eman.taskcalories.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.eman.taskcalories.R.layout.row_recipe, LAYOUT_ROWRECIPE);
   }
@@ -39,6 +43,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         throw new RuntimeException("view must have a tag");
       }
       switch(localizedLayoutId) {
+        case  LAYOUT_ACTIVITYDETAILS: {
+          if ("layout/activity_details_0".equals(tag)) {
+            return new ActivityDetailsBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for activity_details is invalid. Received: " + tag);
+        }
         case  LAYOUT_ACTIVITYMAIN: {
           if ("layout/activity_main_0".equals(tag)) {
             return new ActivityMainBindingImpl(component, view);
@@ -96,18 +106,20 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(2);
+    static final SparseArray<String> sKeys = new SparseArray<String>(3);
 
     static {
       sKeys.put(0, "_all");
       sKeys.put(1, "calories");
+      sKeys.put(2, "listener");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(2);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(3);
 
     static {
+      sKeys.put("layout/activity_details_0", com.eman.taskcalories.R.layout.activity_details);
       sKeys.put("layout/activity_main_0", com.eman.taskcalories.R.layout.activity_main);
       sKeys.put("layout/row_recipe_0", com.eman.taskcalories.R.layout.row_recipe);
     }

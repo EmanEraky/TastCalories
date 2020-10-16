@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.View;
 @SuppressWarnings("unchecked")
-public class RowRecipeBindingImpl extends RowRecipeBinding  {
+public class RowRecipeBindingImpl extends RowRecipeBinding implements com.eman.taskcalories.generated.callback.OnClickListener.Listener {
 
     @Nullable
     private static final androidx.databinding.ViewDataBinding.IncludedLayouts sIncludes;
@@ -25,6 +25,8 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
     @NonNull
     private final android.widget.TextView mboundView2;
     // variables
+    @Nullable
+    private final android.view.View.OnClickListener mCallback1;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -45,13 +47,14 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
         this.mboundView2.setTag(null);
         setRootTag(root);
         // listeners
+        mCallback1 = new com.eman.taskcalories.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x4L;
         }
         requestRebind();
     }
@@ -69,7 +72,10 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
     @Override
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
-        if (BR.calories == variableId) {
+        if (BR.listener == variableId) {
+            setListener((com.eman.taskcalories.data.listeners.Listener_Recipe) variable);
+        }
+        else if (BR.calories == variableId) {
             setCalories((com.eman.taskcalories.data.model.ApiCalories) variable);
         }
         else {
@@ -78,10 +84,18 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
             return variableSet;
     }
 
+    public void setListener(@Nullable com.eman.taskcalories.data.listeners.Listener_Recipe Listener) {
+        this.mListener = Listener;
+        synchronized(this) {
+            mDirtyFlags |= 0x1L;
+        }
+        notifyPropertyChanged(BR.listener);
+        super.requestRebind();
+    }
     public void setCalories(@Nullable com.eman.taskcalories.data.model.ApiCalories Calories) {
         this.mCalories = Calories;
         synchronized(this) {
-            mDirtyFlags |= 0x1L;
+            mDirtyFlags |= 0x2L;
         }
         notifyPropertyChanged(BR.calories);
         super.requestRebind();
@@ -102,10 +116,11 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
             mDirtyFlags = 0;
         }
         java.lang.String caloriesHeadline = null;
+        com.eman.taskcalories.data.listeners.Listener_Recipe listener = mListener;
         java.lang.String caloriesName = null;
         com.eman.taskcalories.data.model.ApiCalories calories = mCalories;
 
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0x6L) != 0) {
 
 
 
@@ -117,7 +132,12 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
                 }
         }
         // batch finished
-        if ((dirtyFlags & 0x3L) != 0) {
+        if ((dirtyFlags & 0x4L) != 0) {
+            // api target 1
+
+            this.mboundView0.setOnClickListener(mCallback1);
+        }
+        if ((dirtyFlags & 0x6L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, caloriesName);
@@ -126,11 +146,31 @@ public class RowRecipeBindingImpl extends RowRecipeBinding  {
     }
     // Listener Stub Implementations
     // callback impls
+    public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
+        // localize variables for thread safety
+        // listener != null
+        boolean listenerJavaLangObjectNull = false;
+        // listener
+        com.eman.taskcalories.data.listeners.Listener_Recipe listener = mListener;
+        // calories
+        com.eman.taskcalories.data.model.ApiCalories calories = mCalories;
+
+
+
+        listenerJavaLangObjectNull = (listener) != (null);
+        if (listenerJavaLangObjectNull) {
+
+
+
+            listener.openDetailRecipe(calories);
+        }
+    }
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): calories
-        flag 1 (0x2L): null
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): calories
+        flag 2 (0x3L): null
     flag mapping end*/
     //end
 }

@@ -2,4 +2,7 @@
     <string name="app_name">TaskCalories</string>
     <string name="fat">Fat</string>
     <string name="calories">Calories</string>
+    <string name="name">Name :</string>
+    <string name="descripe">Description</string>
+    <string name="proteins">Proteins</string>
 </resources>

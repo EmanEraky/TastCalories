@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.eman.taskcalories.R
 import com.eman.taskcalories.data.api.RetrofitBuilder
+import com.eman.taskcalories.data.listeners.Listener_Recipe
 import com.eman.taskcalories.data.model.ApiCalories
 import com.eman.taskcalories.databinding.ActivityMainBinding
 import com.eman.taskcalories.utils.NetworkConnection.isConnectedToInternet
@@ -28,7 +29,7 @@ import java.util.*
 import kotlin.Comparator
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Listener_Recipe {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: ApiCaloriesAdapter
@@ -136,7 +137,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        adapter = ApiCaloriesAdapter(arrayListOf())
+        adapter = ApiCaloriesAdapter(arrayListOf(), this)
         recyclerView.adapter = adapter
     }
 
@@ -188,4 +189,11 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         finish()
     }
+
+    override fun openDetailRecipe(api: ApiCalories) {
+        val intent_detail = Intent(this, DetailsActivity::class.java)
+        intent_detail.putExtra("myRecipe", api)
+        startActivity(intent_detail)
+    }
+
 }
