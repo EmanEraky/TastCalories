@@ -1,0 +1,4 @@
+#Fri Oct 16 12:14:58 EET 2020
+base.0=D\:\\eman\\taskMVIKmp\\TaskCalories\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
